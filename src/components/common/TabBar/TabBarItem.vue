@@ -29,7 +29,7 @@ export default {
 .tab-bar-item{
   flex:1;
   text-align:center;
-  height:49px;
+  height:50px;
   position:relative;
 }
 .tab-bar-item div>p{
@@ -39,7 +39,7 @@ export default {
   left:50%;
   transform:translateX(-50%);
   position:absolute;
-  top:-34px;
+  top:-10px;
 }
 .tab-bar-item>div div{
   position:absolute;

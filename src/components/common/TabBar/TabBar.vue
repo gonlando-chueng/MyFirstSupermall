@@ -24,7 +24,7 @@ export default {
   line-height: 49px;
   left:0;
   right:0;
-  bottom:0;
+  bottom:-1px;
   box-shadow:0 -3px 1px rgba(100, 100, 100, .1)
 }
 

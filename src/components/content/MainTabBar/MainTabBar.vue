@@ -1,5 +1,5 @@
 <template>
-  <tab-bar>
+  <tab-bar class='tab-bar'>
       <tab-bar-item path='/home'>
         <p class='iconfont icon-home1' slot='item-icon'></p>
         <div slot='item-text'>首页</div>
@@ -32,5 +32,7 @@ export default {
 </script>
 
 <style>
-
+.tab-bar{
+  z-index:11;
+}
 </style>
