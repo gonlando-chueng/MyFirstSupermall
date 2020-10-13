@@ -12,6 +12,8 @@
     <detail-commend-info ref='commend' :comment-info='commentInfo'></detail-commend-info>
     <goods-list ref='recommend' :goods='recommends'></goods-list>
     </scroll>
+    <back-top @click.native='backClick' v-show='isShow'></back-top>
+    <detail-bottom-nav></detail-bottom-nav>
   </div>
 </template>
 
@@ -23,13 +25,15 @@ import DetailShopInfo from "./childcomponents/DetailShopInfo";
 import DetailGoodsInfo from "./childcomponents/DetailGoodsInfo"
 import DetailParamInfo from "./childcomponents/DetailParamInfo"
 import DetailCommendInfo from "./childcomponents/DetailCommendInfo"
+import DetailBottomNav from "./childcomponents/DetailBottomNav"
+
 
 import Scroll from 'components/common/scroll/Scroll'
 import GoodsList from 'components/content/goods/GoodsList'
 import { getDetail, getRecommend,Goods, Shop ,GoodsParam} from "network/detail";
 
 import {debounce} from 'common/utils.js'
-import {itemImgListenerMixin} from 'common/mixin'
+import {itemImgListenerMixin,backTopMixin} from 'common/mixin'
 
 export default {
   name: "Detail",
@@ -43,8 +47,10 @@ export default {
     DetailParamInfo,
     DetailCommendInfo,
     GoodsList,
+    DetailBottomNav,
+    
   },
-  mixins:[itemImgListenerMixin],
+  mixins:[itemImgListenerMixin,backTopMixin],
   data() {
     return {
       iid: null,
@@ -57,6 +63,7 @@ export default {
       recommends:[],
       themeTopYs:[],
       getThemeTopYs:null,
+   
     };
   },
   destroyed(){
@@ -90,7 +97,7 @@ export default {
       this.themeTopYs.push(this.$refs.commend.$el.offsetTop -44)
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop -44)
       this.themeTopYs.push(Number.MAX_VALUE)
-      console.log(this.themeTopYs);
+      // console.log(this.themeTopYs);
       },100)
       // this.$nextTick(() => {
       //   //根据最新的数据，对应的DOM已经渲染完成，但图片还没加载完
@@ -126,7 +133,9 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex
         }
       }
-    }
+      this.isShow = (-position.y) > 1000
+    },
+   
   }
 };
 </script>
@@ -143,7 +152,7 @@ export default {
 #detail .detail-content{
 
 /* overflow: hidden; */
-height: calc(100% - 44px);
+height: calc(100% - 44px - 48px);
 
 }
 .detail-nav{
