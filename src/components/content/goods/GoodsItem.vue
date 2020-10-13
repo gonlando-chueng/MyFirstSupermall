@@ -1,6 +1,6 @@
 <template>
-  <div class='goods-item' v-cloak>
-    <img :src="goodsItem.show.img" alt="">
+  <div class='goods-item' @click='itemClick'>
+    <img :src="showImage" alt="" @load='imgLoad'>
     <div class='goods-info'>
       <p>{{goodsItem.title}}</p>
       <span class='price'>{{goodsItem.price}}</span>
@@ -18,6 +18,25 @@ export default {
       default(){
         return {}
       }
+    }
+  },
+  computed:{
+    showImage(){
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
+  methods:{
+    imgLoad(){
+      this.$bus.$emit('itemImgLoad')
+    },
+    itemClick(){
+      this.$router.push('/detail/'+this.goodsItem.iid)
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+
+      //   }
+      // })
     }
   }
 }
@@ -64,7 +83,5 @@ export default {
   height:14px;
   background:url('~assets/img/common/collect.svg') 0 0/14px 14px;
 }
-[v-clock]{
-  display:none;
-}
+
 </style>
