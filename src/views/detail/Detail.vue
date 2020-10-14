@@ -1,5 +1,6 @@
 <template>
-  <div id="detail">
+  <div id="detail"> 
+    <!-- <div v-for='(item,index) in $store.state.cartList' :key="index">{{item}}</div> -->
     <nav-item class='detail-nav' @titleClick="titleClick" ref='nav'></nav-item>
     <scroll class='detail-content' ref="scroll"
     :probe-type="3"
@@ -13,7 +14,7 @@
     <goods-list ref='recommend' :goods='recommends'></goods-list>
     </scroll>
     <back-top @click.native='backClick' v-show='isShow'></back-top>
-    <detail-bottom-nav></detail-bottom-nav>
+    <detail-bottom-nav @addToCart='addToCart'></detail-bottom-nav>
   </div>
 </template>
 
@@ -120,7 +121,7 @@ export default {
       this.getThemeTopYs()
     },
     titleClick(index){
-      console.log(index);
+      // console.log(index);
       this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],200)
     },
     scroll(position){
@@ -135,7 +136,20 @@ export default {
       }
       this.isShow = (-position.y) > 1000
     },
-   
+   addToCart(){
+     const product = {}
+     product.image = this.topImages[0]
+     product.title = this.goods.title
+     product.desc = this.goods.desc
+     product.price = this.goods.realPrice
+     product.iid = this.iid
+      
+      
+
+     this.$store.dispatch('addCart',product).then(res => {
+       console.log(res);
+     })
+   }
   }
 };
 </script>
