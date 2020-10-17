@@ -12,7 +12,7 @@ export function request(config) {
   instance.interceptors.request.use(config => {
     return config
   },err => {
-
+    console.log(err)
   })
   //响应拦截
   instance.interceptors.response.use(res => {
